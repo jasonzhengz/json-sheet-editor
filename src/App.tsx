@@ -9,6 +9,36 @@ import './App.css';
 const electronAPI = (window as any).electronAPI;
 
 const App: React.FC = () => {
+  // Early error check for electronAPI
+  if (!electronAPI) {
+    return (
+      <div style={{ 
+        padding: '20px', 
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f0f0f0',
+        minHeight: '100vh'
+      }}>
+        <h1 style={{ color: '#d32f2f' }}>⚠️ Electron API Error</h1>
+        <p>The Electron API is not available. This could be due to:</p>
+        <ul>
+          <li>Preload script not loading properly</li>
+          <li>Security context issues</li>
+          <li>App not running in Electron environment</li>
+        </ul>
+        <div style={{ 
+          backgroundColor: 'white', 
+          padding: '15px', 
+          borderRadius: '5px',
+          marginTop: '20px'
+        }}>
+          <h3>Debug Info:</h3>
+          <p><strong>User Agent:</strong> {navigator.userAgent}</p>
+          <p><strong>Location:</strong> {window.location.href}</p>
+          <p><strong>Available window properties:</strong> {Object.keys(window).filter(key => key.includes('electron')).join(', ')}</p>
+        </div>
+      </div>
+    );
+  }
   const [fileData, setFileData] = useState<FileData | null>(null);
   const [flattenedData, setFlattenedData] = useState<FlattenedRow[]>([]);
   const [columns, setColumns] = useState<ColumnInfo[]>([]);

@@ -28,20 +28,36 @@ function createWindow() {
   console.log('Loading URL:', startUrl);
   console.log('Is Development:', isDev);
   console.log('App is packaged:', app.isPackaged);
+  console.log('__dirname:', __dirname);
+  console.log('process.resourcesPath:', process.resourcesPath);
+  
+  // Check if the HTML file exists
+  const fs = require('fs');
+  const htmlPath = path.join(__dirname, './build/index.html');
+  console.log('HTML file exists:', fs.existsSync(htmlPath));
+  console.log('HTML file path:', htmlPath);
   
   mainWindow.loadURL(startUrl);
 
   // Show window when ready to prevent white flash
   mainWindow.once('ready-to-show', () => {
+    console.log('Window ready to show');
     mainWindow.show();
   });
 
   // Handle loading errors
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
     console.error('Failed to load:', errorCode, errorDescription, validatedURL);
+    // Show DevTools to debug the issue
+    mainWindow.webContents.openDevTools();
   });
 
-  // Open DevTools in development or if there are issues
+  // Listen for console messages from renderer
+  mainWindow.webContents.on('console-message', (event, level, message) => {
+    console.log('Renderer console:', level, message);
+  });
+
+  // Open DevTools in development or for debugging
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }

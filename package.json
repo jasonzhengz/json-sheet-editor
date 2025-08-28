@@ -44,6 +44,7 @@
       "build/**/*",
       "main.js",
       "preload.js",
+      "debug.html",
       "package.json"
     ],
     "extraResources": [
