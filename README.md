@@ -17,9 +17,10 @@ A powerful desktop JSON editor that displays JSON files as spreadsheet-like tabl
 > **No technical setup required!** Simply download and install like any other desktop application.
 
 ## ✨ Screenshots
+<img width="1199" height="802" alt="Screenshot 2025-08-28 at 11 36 11 PM" src="https://github.com/user-attachments/assets/fe61d187-85e9-492c-8cbd-de925255d7bf" />
 
-![JSON Editor Screenshot](https://via.placeholder.com/800x500/f0f0f0/666666?text=JSON+Editor+Screenshot)
-*Screenshot showing table view of JSON data with filtering*
+<img width="1198" height="798" alt="Screenshot 2025-08-28 at 11 36 37 PM" src="https://github.com/user-attachments/assets/e8676579-de3f-4c66-a7a8-96d391e55485" />
+
 
 ## ✨ Features
 
