@@ -17,7 +17,10 @@
     "dist-all": "npm run build && electron-builder --mac --win --linux"
   },
   "keywords": ["electron", "react", "json", "editor", "table"],
-  "author": "Your Name",
+  "author": {
+    "name": "JSON Editor Contributors",
+    "email": "noreply@example.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.15.0",
