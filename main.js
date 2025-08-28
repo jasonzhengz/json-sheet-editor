@@ -21,9 +21,13 @@ function createWindow() {
   });
 
   // Handle different paths for dev vs production
-  const startUrl = isDev 
-    ? 'http://localhost:3000' 
-    : `file://${path.join(__dirname, './build/index.html')}`;
+  let startUrl;
+  if (isDev) {
+    startUrl = 'http://localhost:3000';
+  } else {
+    // In packaged apps, files are in the asar archive root
+    startUrl = `file://${__dirname}/index.html`;
+  }
   
   console.log('Loading URL:', startUrl);
   console.log('Is Development:', isDev);
@@ -31,11 +35,21 @@ function createWindow() {
   console.log('__dirname:', __dirname);
   console.log('process.resourcesPath:', process.resourcesPath);
   
-  // Check if the HTML file exists
+  // Check if the HTML file exists and list directory contents
   const fs = require('fs');
-  const htmlPath = path.join(__dirname, './build/index.html');
-  console.log('HTML file exists:', fs.existsSync(htmlPath));
-  console.log('HTML file path:', htmlPath);
+  console.log('Directory contents of __dirname:', fs.readdirSync(__dirname));
+  
+  // Try different possible paths
+  const possiblePaths = [
+    path.join(__dirname, 'build', 'index.html'),
+    path.join(__dirname, 'index.html'),
+    path.join(process.resourcesPath, 'app', 'build', 'index.html'),
+    path.join(process.resourcesPath, 'build', 'index.html')
+  ];
+  
+  possiblePaths.forEach((testPath, index) => {
+    console.log(`Path ${index + 1}: ${testPath} - exists: ${fs.existsSync(testPath)}`);
+  });
   
   mainWindow.loadURL(startUrl);
 
