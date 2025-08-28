@@ -1,0 +1,180 @@
+.table-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-view-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #718096;
+  font-size: 18px;
+}
+
+.table-controls {
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.selection-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.selection-info span {
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.batch-edit-btn {
+  background-color: #38b2ac;
+  color: white;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.batch-edit-btn:hover {
+  background-color: #319795;
+}
+
+.clear-selection-btn {
+  background-color: #e53e3e;
+  color: white;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.clear-selection-btn:hover {
+  background-color: #c53030;
+}
+
+.table-container {
+  flex: 1;
+  overflow: auto;
+}
+
+.json-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.json-table th,
+.json-table td {
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.json-table th {
+  background-color: #f7fafc;
+  font-weight: 600;
+  color: #2d3748;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.select-column {
+  width: 40px;
+  text-align: center;
+}
+
+.column-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 150px;
+}
+
+.column-title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.json-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.json-table tr:hover {
+  background-color: #edf2f7;
+}
+
+.json-table tr.selected {
+  background-color: #bee3f8 !important;
+}
+
+.cell-value {
+  display: block;
+  min-height: 20px;
+  word-break: break-word;
+  white-space: pre-wrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-input {
+  width: 100%;
+  border: 2px solid #4299e1;
+  border-radius: 2px;
+  padding: 4px;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.cell-string {
+  color: #2d3748;
+}
+
+.cell-number {
+  color: #3182ce;
+  text-align: right;
+}
+
+.cell-boolean {
+  color: #38b2ac;
+}
+
+.cell-array {
+  color: #805ad5;
+  font-family: monospace;
+}
+
+.cell-object {
+  color: #d69e2e;
+  font-family: monospace;
+}
+
+.cell-null {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+.column-string {
+  min-width: 120px;
+}
+
+.column-number {
+  min-width: 100px;
+}
+
+.column-boolean {
+  min-width: 80px;
+}
+
+.column-array,
+.column-object {
+  min-width: 200px;
+}
+
+.column-null {
+  min-width: 80px;
+}

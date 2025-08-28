@@ -1,0 +1,86 @@
+.file-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f7fafc;
+}
+
+.file-loader-content {
+  text-align: center;
+  padding: 40px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}
+
+.file-loader-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.file-loader-content h2 {
+  color: #2d3748;
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.file-loader-content p {
+  color: #718096;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.load-file-btn {
+  background-color: #4299e1;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  margin-bottom: 24px;
+}
+
+.load-file-btn:hover:not(:disabled) {
+  background-color: #3182ce;
+}
+
+.load-file-btn:disabled {
+  background-color: #a0aec0;
+}
+
+.file-info {
+  margin-bottom: 24px;
+}
+
+.file-info small {
+  color: #718096;
+  line-height: 1.5;
+}
+
+.shortcuts {
+  text-align: left;
+  background-color: #f7fafc;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.shortcuts p {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 14px;
+}
+
+.shortcuts ul {
+  list-style: none;
+}
+
+.shortcuts li {
+  margin-bottom: 4px;
+  font-size: 13px;
+  color: #4a5568;
+}

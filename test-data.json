@@ -1,0 +1,30 @@
+[
+  {
+    "foo": 456,
+    "hello": "hi"
+  },
+  {
+    "foo": 123,
+    "bar": ["a", "b"]
+  },
+  {
+    "foo": 789,
+    "hello": "world",
+    "nested": {
+      "level1": {
+        "level2": "deep value"
+      },
+      "simple": "value"
+    }
+  },
+  {
+    "bar": ["x", "y", "z"],
+    "nested": {
+      "level1": {
+        "level2": "another deep value"
+      }
+    },
+    "boolean": true,
+    "number": 42.5
+  }
+]
