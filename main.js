@@ -4,25 +4,44 @@ const fs = require('fs');
 
 let mainWindow;
 
-const isDev = process.env.NODE_ENV === 'development';
+// Better way to detect development vs production
+const isDev = process.env.NODE_ENV === 'development' && !app.isPackaged;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true
-    }
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, 'preload.js')
+    },
+    show: false // Don't show until ready-to-show
   });
 
+  // Handle different paths for dev vs production
   const startUrl = isDev 
     ? 'http://localhost:3000' 
     : `file://${path.join(__dirname, './build/index.html')}`;
   
+  console.log('Loading URL:', startUrl);
+  console.log('Is Development:', isDev);
+  console.log('App is packaged:', app.isPackaged);
+  
   mainWindow.loadURL(startUrl);
 
+  // Show window when ready to prevent white flash
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
+
+  // Handle loading errors
+  mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+    console.error('Failed to load:', errorCode, errorDescription, validatedURL);
+  });
+
+  // Open DevTools in development or if there are issues
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }

@@ -5,7 +5,8 @@ import TableView from './components/TableView';
 import FileLoader from './components/FileLoader';
 import './App.css';
 
-const { ipcRenderer } = window.require('electron');
+// Use the secure electronAPI exposed by preload script
+const electronAPI = (window as any).electronAPI;
 
 const App: React.FC = () => {
   const [fileData, setFileData] = useState<FileData | null>(null);
@@ -15,9 +16,14 @@ const App: React.FC = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const loadJsonFile = useCallback(async () => {
+    if (!electronAPI) {
+      alert('Error: Electron API not available');
+      return;
+    }
+    
     setIsLoading(true);
     try {
-      const result = await ipcRenderer.invoke('open-json-file');
+      const result = await electronAPI.openJsonFile();
       if (result.success) {
         const jsonData = result.data;
         
@@ -45,16 +51,16 @@ const App: React.FC = () => {
   }, []);
 
   const saveFile = useCallback(async (saveAs = false) => {
-    if (!fileData) return;
+    if (!fileData || !electronAPI) return;
 
     const originalData = unflattenToJsonArray(flattenedData);
     
     try {
       let result: { success: boolean; error?: string; filePath?: string };
       if (saveAs || !fileData.filePath) {
-        result = await ipcRenderer.invoke('save-json-file-as', originalData);
+        result = await electronAPI.saveJsonFileAs(originalData);
       } else {
-        result = await ipcRenderer.invoke('save-json-file', originalData, fileData.filePath);
+        result = await electronAPI.saveJsonFile(originalData, fileData.filePath);
       }
 
       if (result.success) {
@@ -76,13 +82,15 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!electronAPI) return;
+    
     const handleMenuOpen = () => loadJsonFile();
     const handleMenuSave = () => saveFile(false);
     const handleMenuSaveAs = () => saveFile(true);
 
-    ipcRenderer.on('menu-open-file', handleMenuOpen);
-    ipcRenderer.on('menu-save-file', handleMenuSave);
-    ipcRenderer.on('menu-save-file-as', handleMenuSaveAs);
+    electronAPI.onMenuOpenFile(handleMenuOpen);
+    electronAPI.onMenuSaveFile(handleMenuSave);
+    electronAPI.onMenuSaveFileAs(handleMenuSaveAs);
 
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (hasUnsavedChanges) {
@@ -94,9 +102,9 @@ const App: React.FC = () => {
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      ipcRenderer.removeListener('menu-open-file', handleMenuOpen);
-      ipcRenderer.removeListener('menu-save-file', handleMenuSave);
-      ipcRenderer.removeListener('menu-save-file-as', handleMenuSaveAs);
+      electronAPI.removeAllListeners('menu-open-file');
+      electronAPI.removeAllListeners('menu-save-file');
+      electronAPI.removeAllListeners('menu-save-file-as');
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [loadJsonFile, saveFile, hasUnsavedChanges]);
