@@ -61,3 +61,6 @@ Desktop.ini
 # Electron
 /app/dist
 /release
+
+# Claude Code
+.claude
