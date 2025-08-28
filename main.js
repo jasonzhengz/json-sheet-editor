@@ -29,37 +29,11 @@ function createWindow() {
     startUrl = `file://${path.join(__dirname, 'build', 'index.html')}`;
   }
   
-  console.log('Loading URL:', startUrl);
-  console.log('Is Development:', isDev);
-  console.log('App is packaged:', app.isPackaged);
-  console.log('__dirname:', __dirname);
-  console.log('process.resourcesPath:', process.resourcesPath);
-  
-  // Let's check if __dirname already includes build
-  console.log('__dirname ends with build:', __dirname.endsWith('build'));
-  console.log('__dirname ends with app:', __dirname.endsWith('app'));
-  
-  // Check if the HTML file exists and list directory contents
-  const fs = require('fs');
-  console.log('Directory contents of __dirname:', fs.readdirSync(__dirname));
-  
-  // Try different possible paths
-  const possiblePaths = [
-    path.join(__dirname, 'build', 'index.html'),
-    path.join(__dirname, 'index.html'),
-    path.join(process.resourcesPath, 'app', 'build', 'index.html'),
-    path.join(process.resourcesPath, 'build', 'index.html')
-  ];
-  
-  possiblePaths.forEach((testPath, index) => {
-    console.log(`Path ${index + 1}: ${testPath} - exists: ${fs.existsSync(testPath)}`);
-  });
   
   mainWindow.loadURL(startUrl);
 
   // Show window when ready to prevent white flash
   mainWindow.once('ready-to-show', () => {
-    console.log('Window ready to show');
     mainWindow.show();
   });
 
@@ -68,11 +42,6 @@ function createWindow() {
     console.error('Failed to load:', errorCode, errorDescription, validatedURL);
     // Show DevTools to debug the issue
     mainWindow.webContents.openDevTools();
-  });
-
-  // Listen for console messages from renderer
-  mainWindow.webContents.on('console-message', (event, level, message) => {
-    console.log('Renderer console:', level, message);
   });
 
   // Open DevTools in development
