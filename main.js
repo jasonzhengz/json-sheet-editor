@@ -25,8 +25,8 @@ function createWindow() {
   if (isDev) {
     startUrl = 'http://localhost:3000';
   } else {
-    // In packaged apps, files are in the asar archive root
-    startUrl = `file://${__dirname}/index.html`;
+    // In packaged apps, build files are in build folder
+    startUrl = `file://${path.join(__dirname, 'build', 'index.html')}`;
   }
   
   console.log('Loading URL:', startUrl);
@@ -34,6 +34,10 @@ function createWindow() {
   console.log('App is packaged:', app.isPackaged);
   console.log('__dirname:', __dirname);
   console.log('process.resourcesPath:', process.resourcesPath);
+  
+  // Let's check if __dirname already includes build
+  console.log('__dirname ends with build:', __dirname.endsWith('build'));
+  console.log('__dirname ends with app:', __dirname.endsWith('app'));
   
   // Check if the HTML file exists and list directory contents
   const fs = require('fs');
@@ -71,7 +75,7 @@ function createWindow() {
     console.log('Renderer console:', level, message);
   });
 
-  // Open DevTools in development or for debugging
+  // Open DevTools in development
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }

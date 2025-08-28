@@ -38,18 +38,15 @@
     "appId": "com.example.json-editor",
     "productName": "JSON Editor",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "assets"
     },
+    "extends": null,
     "files": [
       "main.js",
       "preload.js",
-      "debug.html",
       "package.json",
-      {
-        "from": "build",
-        "to": ".",
-        "filter": ["**/*"]
-      }
+      "build/**/*"
     ],
     "extraResources": [
       {
